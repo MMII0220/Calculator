@@ -96,3 +96,14 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
+/* Media
+
+*****************/
+@media (max-width: 440px) {
+  .calculator {
+    max-width: 90%;
+    
+}
+  }
+}
