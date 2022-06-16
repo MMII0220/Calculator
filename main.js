@@ -1,3 +1,6 @@
+/* Добавить стрелку влево, что есть удалить цифру, сделать эту схему
+ **********************************************************/
+
 window.addEventListener('DOMContentLoaded', () => {
   let total = document.querySelector('.input__total'),
     nums = document.querySelectorAll('.num'),
@@ -5,49 +8,65 @@ window.addEventListener('DOMContentLoaded', () => {
     erase = document.querySelector('.erase'),
     res = document.querySelector('.equal');
 
-  let expression;
+  let expre;
 
-  /* Вводимые числа */
+  /* Для оппределения оператора */
+  let hS = false;
+
+  /* Вводим значение */
   nums.forEach((num) => {
     num.addEventListener('click', (event) => {
-      const e = event.target;
+      const e = event.target.innerHTML;
 
-      total.value += e.innerHTML;
+      total.value += e;
 
-      expression = total.value;
+      expre = total.value;
+
+      hS = false;
     });
   });
 
-  /* Знаки в калькуляторе +,-,*,/ */
+  /* Выбираем Оператор */
   signs.forEach((sign) => {
     sign.addEventListener('click', (event) => {
-      const e = event.target;
+      const e = event.target.value;
 
-      total.value += e.value;
+      if (hS == false) {
+        hS = true;
+
+        switch (e) {
+          case '+':
+            total.value += '+';
+            break;
+          case '-':
+            total.value += '-';
+            break;
+          case '*':
+            total.value += '*';
+            break;
+          case '/':
+            total.value += '/';
+            break;
+        }
+      }
     });
   });
 
-  /* Кнопка C*/
+  /* Стираем все данные */
   erase.addEventListener('click', () => {
     total.value = '';
+
+    hS = false;
   });
 
-  /* Вычисляем значение */
+  /* Оператор Равно */
   res.addEventListener('click', () => {
-    console.log(eval(expression));
+    if (hS == true) {
+      alert('Использован недопустимый формат.');
+      return false;
+    }
+    total.value = eval(expre);
+
+    hS = false;
   });
 });
-
-/*
-switch (sign) {
-      case '+':
-        total.value = 
-        break;
-      case '-':
-        break;
-      case '*':
-        break;
-      case '/':
-        break;
-    }
-*/
